@@ -1,5 +1,3 @@
-<? include 'get_imagem.php';
-include 'insert_image.php';?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -11,8 +9,8 @@ include 'insert_image.php';?>
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body>
-        <?php include 'insert_image.php'; ?>
-        <?php include 'get_images.php'; ?>
+        <?php include 'insert.php'; ?>
+        <?php include 'get.php'; ?>
 
         <section style="margin:100px 600px">
             <form method="post" action="<?php echo $_SERVER['REQUEST_METHOD']; ?>">
