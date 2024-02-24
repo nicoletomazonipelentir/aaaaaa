@@ -1,49 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeria de Imagens</title>
-    <style>
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Galeria de Imagens</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body>
+        <?php include 'insert_image.php'; ?>
+        <?php include 'get_images.php'; ?>
 
-        .gallery img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-    </style>
-</head>
-<body>
-    <h1>Galeria de Imagens</h1>
+        <section style="margin:100px 600px">
+            <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                <input type="text" name="imagem" placeholder="Insira o link da sua imagem" class="file-input file-input-bordered file-input-primary w-full max-w-xs" />
+                <button type="submit" class="btn join-item btn-primary">Enviar</button>
+            </form>
+        </section>
 
-    <div class="gallery">
-        <?php
-        // Exibe imagens do banco de dados
-        include 'config.php'; // Arquivo de configuração do banco de dados
+        <section class="flex w-full">
+        <div class="card w-96 bg-base-100 shadow-xl image-full grid">
+            <figure>
+                <?php
+                $images = getImages();
+                if (!empty($images)) {
+                    echo "<h2>Imagens Enviadas</h2>";
+                    foreach ($images as $image) {
+                        echo "<img src='" . $image['link'] . "' alt='Imagem' data-image-id='" . $image['id'] . "'><br>";
+                    }
+                } else {
+                    echo "<p>Nenhuma imagem encontrada.</p>";
+                }
+                ?>
+            </figure>
+        </div>
+    </section>
 
-        $query = "SELECT * FROM imagens";
-        $result = mysqli_query($conn, $query);
-
-        while ($row = mysqli_fetch_assoc($result)) {
-            echo '<img src="uploads/' . $row['nome_arquivo'] . '" alt="' . $row['descricao'] . '">';
-        }
-        ?>
-    </div>
-
-    <form action="upload.php" method="post" enctype="multipart/form-data">
-        <label for="imagem">Escolha uma imagem:</label>
-        <input type="file" name="imagem" id="imagem" required>
-        <br>
-        <label for="descricao">Descrição:</label>
-        <input type="text" name="descricao" id="descricao" required>
-        <br>
-        <button type="submit">Enviar</button>
-    </form>
-</body>
+        <footer class="footer footer-center p-4 bg-base-300 text-base-content " style="position: fixed;bottom: 0;">
+            <aside>
+                <p>Copyright © 2024 - Nicole Tomazoni Pelentir</p>
+            </aside>
+        </footer>
+    </body>
 </html>
