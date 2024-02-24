@@ -28,7 +28,7 @@
                 if (!empty($images)) {
                     echo "<h2>Imagens Enviadas</h2>";
                     foreach ($images as $image) {
-                        echo "<img src='" . $image['link'] . "' alt='Imagem' data-image-id='" . $image['id'] . "'><br>";
+                        echo "<img src='" . $image['link'] . "' alt='Imagem'><br>";
                     }
                 } else {
                     echo "<p>Nenhuma imagem encontrada.</p>";
