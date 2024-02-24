@@ -23,28 +23,26 @@ include 'insert_image.php';?>
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $imageLink = $_POST['imagem'];
                     $result = insertImage($imageLink);
-                    echo $result;
+                    //echo $result;
                 }
             ?>
         </section>
 
         <section class="flex w-full">
-        <div class="card w-96 bg-base-100 shadow-xl image-full grid">
-            <figure>
-                <?php
-                $images = getImages();
-                if (!empty($images)) {
-                    echo "<h2>Imagens Enviadas</h2>";
-                    foreach ($images as $image) {
-                        echo "<img src='" . $image['link'] . "' alt='Imagem'><br>";
-                    }
-                } else {
-                    echo "<p>Nenhuma imagem encontrada.</p>";
+            <?php
+            $images = getImages();
+            if (!empty($images)) {
+                echo "<h2>Imagens Enviadas</h2>";
+                foreach ($images as $image) {
+                    echo '<div class="card w-96 bg-base-100 shadow-xl image-full grid">';
+                    echo "<img src='" . $image['link'] . "' alt='Imagem'><br>";
+                    echo '</div>';
                 }
-                ?>
-            </figure>
-        </div>
-    </section>
+            } else {
+                echo "<p>Nenhuma imagem encontrada.</p>";
+            }
+            ?>
+        </section>
 
         <footer class="footer footer-center p-4 bg-base-300 text-base-content " style="position: fixed;bottom: 0;">
             <aside>
