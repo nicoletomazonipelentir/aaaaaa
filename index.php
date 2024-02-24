@@ -1,4 +1,5 @@
-<? include 'get_imagem.php';?>
+<? include 'get_imagem.php';
+include 'insert_image.php';?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,10 +15,17 @@
         <?php include 'get_images.php'; ?>
 
         <section style="margin:100px 600px">
-            <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+            <form method="post" action="<?php echo $_SERVER['REQUEST_METHOD']; ?>">
                 <input type="text" name="imagem" placeholder="Insira o link da sua imagem" class="file-input file-input-bordered file-input-primary w-full max-w-xs" />
                 <button type="submit" class="btn join-item btn-primary">Enviar</button>
             </form>
+            <?php
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $imageLink = $_POST['imagem'];
+                    $result = insertImage($imageLink);
+                    echo $result;
+                }
+            ?>
         </section>
 
         <section class="flex w-full">
